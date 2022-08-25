@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
-from info import finance
+from info import finance, user
+import sys
 
 app = Flask(__name__)
 
@@ -19,7 +20,7 @@ def api(route):
 		return 'error'
 @app.route('/finance/usr/<route>')
 def expense(route):
-	fin = finance.Finance()
+	fin = user.User()
 	if route == 'expense':
 		return fin.ExpPerUser()
 	elif route == 'reach':

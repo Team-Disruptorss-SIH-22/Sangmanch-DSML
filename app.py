@@ -20,6 +20,10 @@ def expense(route):
 	else:
 		return 'error'
 
+@app.route('/user/count')
+def countEvent():
+	usr = user.User()
+	return usr.CountVsType()
 
 
 if __name__ == '__main__':

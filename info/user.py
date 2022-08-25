@@ -28,4 +28,12 @@ class User:
         x = [str(i) for i in x] 
         data = {'x': x, 'y': y}
         return json.dumps(data)
+
+    def CountVsType(self):
+        buffer = self.userData.groupby('type').count()['userID']
+        y = buffer.to_list()
+        x = self.userData.type.unique().tolist()
+        x = [str(i) for i in x] 
+        data = {'x': x, 'y': y}
+        return json.dumps(data)
     

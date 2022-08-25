@@ -1,3 +1,4 @@
+from distutils.log import ERROR
 import os
 import pandas as pd
 from pymongo import MongoClient
@@ -7,17 +8,39 @@ def load_secrets():
     load_dotenv()
     return os.getenv('URI_SECRET')
 
-def main():
+def load_table(table):  
     client = MongoClient()
-    #point the client at mongo URI
     client = MongoClient(load_secrets())
-    #select database
     db = client['test']
-    #select the collection within the database
-    test = db.events
-    #convert entire collection to Pandas dataframe
-    test = pd.DataFrame(list(test.find()))
-    print(test.head())
+    if table == 'events':
+        events = db.events
+        events = pd.DataFrame(list(events.find()))
+        return events
+    
+    elif table == 'users':
+        users = db.users
+        users = pd.DataFrame(list(users.find()))
+        return users
+    
+    elif table == 'financereports':
+        financereports = db.financereports
+        financereports = pd.DataFrame(list(financereports.find()))
+        return financereports
+    
+    elif table == 'generalassemblyreports':
+        generalassemblyreports = db.generalassemblyreports
+        generalassemblyreports = pd.DataFrame(list(generalassemblyreports.find()))
+        return generalassemblyreports
+    
+    elif table == 'governingbodyreports':
+        governingbodyreports = db.governingbodyreports
+        governingbodyreports = pd.DataFrame(list(governingbodyreports.find()))
+        return governingbodyreports
+    
+    else:
+        raise Exception('Table not found')
+
+
 
 if __name__ == '__main__':
-    main()
+    print(load_table('events').head())

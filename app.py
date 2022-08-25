@@ -9,22 +9,14 @@ app = Flask(__name__)
 def main():
 	return render_template('index.html')
 
-#if route is expense then return expense per user else return reach per user
-@app.route('/api/<route>')
-def api(route):
-	if route == 'expense':
-		return finance.ExpPerUser()
-	elif route == 'reach':
-		return finance.ReachPerUser()
-	else:
-		return 'error'
-@app.route('/finance/usr/<route>')
+
+@app.route('/user/<route>')
 def expense(route):
-	fin = user.User()
+	usr = user.User()
 	if route == 'expense':
-		return fin.ExpPerUser()
+		return usr.ExpPerUser()
 	elif route == 'reach':
-		return fin.ReachPerUser()
+		return usr.ReachPerUser()
 	else:
 		return 'error'
 

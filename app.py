@@ -25,6 +25,11 @@ def countEvent():
 	usr = user.User()
 	return usr.CountVsType()
 
+@app.route('/user/status')
+def status():
+	usr = user.User()
+	return usr.reportStatus()
+
 
 if __name__ == '__main__':
 	app.run(debug=True)

@@ -20,12 +20,34 @@ class Data():
         self.expenses = [x for x in self.dataTable['expenses']]
         self.peopleReached = [x for x in self.dataTable['peopleReached']]
         self.eventType = [x for x in self.dataTable['type']] 
+        self.eventTypeENUM = []
 
+        for i in self.eventType:
+            # "scholarship", "festival", "seminar", "languageFest", "culturalFest", "exhibition"
+            if i == 'scholarship':
+                self.eventTypeENUM.append(2)
+            elif i == 'festival':
+                self.eventTypeENUM.append(1.2)
+            elif i == 'seminar':
+                self.eventTypeENUM.append(1.1)
+            elif i == 'languageFest':
+                self.eventTypeENUM.append(1.1)
+            elif i == 'culturalFest':
+                self.eventTypeENUM.append(1.2)
+            elif i == 'exhibition':
+                self.eventTypeENUM.append(1.1)
+            else:
+                self.eventTypeENUM.append(1)
+        
+        # formula = (expenses/peopleReached)^eventType
+        self.x = [(x/y)**z for x,y,z in zip(self.expenses, self.peopleReached, self.eventTypeENUM)]
+        
         # testing data: y
-        self.status = [x for x in self.dataTable['status']]
+        self.y = [x for x in self.dataTable['status']]
 
         
 
 if __name__ == "__main__":
     dataOBJ = Data('events')
-    print(dataOBJ.status)
+    print(dataOBJ.x)
+    #print(dataOBJ.status)

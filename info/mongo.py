@@ -14,7 +14,8 @@ class MongoConnect():
 
     def load_table(self, table):  
         client = MongoClient()
-        client = MongoClient(self.load_secrets())
+        #client = MongoClient(self.load_secrets())
+        client = MongoClient('mongodb+srv://admin:pTvYVDmoNWcEUHy9@cluster0.wcg0e.mongodb.net/?retryWrites=true&w=majority')
         db = client['test']
         if table == 'events':
             events = db.events

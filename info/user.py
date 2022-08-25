@@ -1,4 +1,3 @@
-import imp
 import pandas as pd
 import numpy as np
 import json
@@ -44,3 +43,24 @@ class User:
         x = [str(i) for i in x]
         data = {'x': x, 'y': y}
         return json.dumps(data)
+    
+    def monthlyData(self):
+        data = self.userData.loc[0:280]
+        data['date'] = pd.to_datetime(data['date'],unit='ms')
+        data['date'] = data['date'].dt.strftime('%Y-%m-%d')
+        data['date'] = [date.split('-') for date in data['date']]
+        month = [date[1] for date in data['date']]
+        data['month'] = month[:]
+        buffer = data.groupby('month').count()['userID']
+        y = buffer.to_list()
+        x = data.month.unique().tolist()
+        x = [(str(i)) for i in x]
+        # sort x
+        x.sort()
+        data = {'x': x, 'y': y}
+        return json.dumps(data)
+
+
+'''if __name__ == '__main__':
+    user = User()
+    print(user.monthlyData())'''

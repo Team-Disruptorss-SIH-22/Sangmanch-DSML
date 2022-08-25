@@ -30,6 +30,11 @@ def status():
 	usr = user.User()
 	return usr.reportStatus()
 
+@app.route('/user/monthly')
+def monthly():
+	usr = user.User()
+	return usr.monthlyData()
+
 
 if __name__ == '__main__':
 	app.run(debug=True)

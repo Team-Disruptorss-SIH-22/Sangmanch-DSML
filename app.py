@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from info import finance, user
-import sys
 
 app = Flask(__name__)
 

@@ -8,6 +8,10 @@ class Model:
             self.model = self.train(X, y)
         self.prediction = self.predict(X) # Predict the model
 
+    
+    def data():
+        pass
+
 
     def train(self, X, y):
         from pyod.models.ecod import ECOD

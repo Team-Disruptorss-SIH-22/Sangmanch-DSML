@@ -6,17 +6,26 @@ import pandas as pd
 
 class Data():
     def __init__(self, table):
+        # Load the data from the database
         self.mongoOBJ = mongo.MongoConnect(table)
         self.dataTable = self.mongoOBJ.load_table(table)
-        print(self.dataTable.columns)
-        self.dataTable['_id'] = self.dataTable['_id'].astype(str)
-        self.expenses = self.dataTable.groupby('userID').sum()['expenses']
-        self.peopleReached = self.dataTable.groupby('userID').sum()['peopleReached']
-        self.eventType = self.dataTable.groupby('userID').count()['type']
 
-        self.y = self.dataTable.groupby('userID').count()['status'] # focus on -1 and 1
+        # convert id to string
+        self.dataTable['_id'] = self.dataTable['_id'].astype(str)
+
+        # get data with status as 'approved' or 'rejected' by finance manager
+        self.dataTable = self.dataTable[(self.dataTable['status'] == -1) | (self.dataTable['status'] == 1)]
+
+        # training data: x
+        self.expenses = [x for x in self.dataTable['expenses']]
+        self.peopleReached = [x for x in self.dataTable['peopleReached']]
+        self.eventType = [x for x in self.dataTable['type']] 
+
+        # testing data: y
+        self.status = [x for x in self.dataTable['status']]
+
+        
 
 if __name__ == "__main__":
     dataOBJ = Data('events')
-    print(dataOBJ.y)
-
+    print(dataOBJ.status)

@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from info import finance, user
 import os
-app = Flask(__name__)
+from flask_cors import CORS
 
+app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def main():
@@ -33,6 +35,12 @@ def status():
 def monthly():
 	usr = user.User()
 	return usr.monthlyData()
+
+
+
+@app.route('/ai/predict')
+def ai_predict():
+	pass
 
 
 if __name__ == "__main__":

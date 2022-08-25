@@ -3,7 +3,7 @@ import os
 import pandas as pd
 from pymongo import MongoClient
 from dotenv import load_dotenv
-
+#check
 class MongoConnect():
     def __init__(self, table):
         self.data = self.load_table(table)       

@@ -11,22 +11,21 @@ class User:
         #self.userData = pd.read_csv('./data/event.csv')
         self.mongoObj = mongo.MongoConnect('events')
         self.userData = self.mongoObj.data
-        #self.userData['expenses'] = self.userData['expenses']
-        #self.userData['budget'] = self.userData['budget']
     
     def ExpPerUser(self):
         buffer = self.userData.groupby('userID').sum()['expenses']
         y = buffer.tolist()
         x = self.userData.userID.unique().tolist()
+        # convert all elements in x to str
+        x = [str(i) for i in x] 
         data = {'x': x, 'y': y}
-        #return json.dumps(data)
-        return data
+        return json.dumps(data)
     
     def ReachPerUser(self):
         buffer = self.userData.groupby('userID').sum()['peopleReached']
         y = buffer.to_list()
         x = self.userData.userID.unique().tolist()
+        x = [str(i) for i in x] 
         data = {'x': x, 'y': y}
-        #return json.dumps(data)
-        return data
+        return json.dumps(data)
     

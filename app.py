@@ -1,3 +1,4 @@
+from urllib import response
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from info import finance, user
 import os
@@ -15,26 +16,37 @@ def main():
 def expense(route):
 	usr = user.User()
 	if route == 'expense':
-		return usr.ExpPerUser()
+		response = jsonify(usr.ExpPerUser())
+		response.headers.add('Access-Control-Allow-Origin', '*')
+		return response
 	elif route == 'reach':
-		return usr.ReachPerUser()
+		response =  jsonify(usr.ReachPerUser())
+		response.headers.add('Access-Control-Allow-Origin', '*')
+		return response
 	else:
 		return 'error'
 
 @app.route('/user/count')
 def countEvent():
 	usr = user.User()
-	return usr.CountVsType()
+	response = jsonify(usr.CountVsType())
+	response.headers.add('Access-Control-Allow-Origin', '*')
+	return response
 
 @app.route('/user/status')
 def status():
 	usr = user.User()
-	return usr.reportStatus()
+	response = usr.reportStatus()
+	response = jsonify(response)
+	response.headers.add('Access-Control-Allow-Origin', '*')
+	return response
 
 @app.route('/user/monthly')
 def monthly():
 	usr = user.User()
-	return usr.monthlyData()
+	response = jsonify(usr.monthlyData())
+	response.headers.add('Access-Control-Allow-Origin', '*')
+	return response
 
 
 

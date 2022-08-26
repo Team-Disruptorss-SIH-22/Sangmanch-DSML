@@ -1,8 +1,14 @@
-from urllib import response
+import imp
+import json
+import sys
+sys.path.extend(['info','model'])
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from info import finance, user
 import os
 from flask_cors import CORS
+import numpy as np
+import model, data, hitl
+
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -50,9 +56,15 @@ def monthly():
 
 
 
-@app.route('/ai/predict')
-def ai_predict():
-	pass
+@app.route('/ai/predict/<float:val>')
+def ai_predict(val):
+	val = np.array(val).reshape(-1,1)
+	hitlOBJ = hitl.HITL(val, model_='XGBOD')
+	pred = hitlOBJ.prediction 
+	data = {'prediction': pred[0].tolist()}
+	response = jsonify(data)
+	response.headers.add('Access-Control-Allow-Origin', '*')
+	return response
 
 
 if __name__ == "__main__":

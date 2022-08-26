@@ -46,8 +46,9 @@ class Data():
         self.y = [x for x in self.dataTable['status']]
 
         
-
+'''
 if __name__ == "__main__":
     dataOBJ = Data('events')
     print(dataOBJ.x)
     #print(dataOBJ.status)
+'''

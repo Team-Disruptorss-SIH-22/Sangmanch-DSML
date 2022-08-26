@@ -1,17 +1,15 @@
 import pyod.models.xgbod as XGBOD
+import numpy as np
 
 class Model:
-    def __init__(self, X, y=None, model=None):
-        if y is None:
-            self.model = self.train(X)
-        else:
-            self.model = self.train(X, y)
-        self.prediction = self.predict(X) # Predict the model
+    def __init__(self, X, val, y=None,  model='XGBOD', mode='train'):
+        print(val)
+        self.model = self.train(X, y, model)
+        self.prediction = self.predict(val) 
 
 
     def train(self, X, y=None, model=None):
-
-        if model is 'XGBOD':
+        if model == 'XGBOD':
             model = XGBOD.XGBOD(max_depth=3, learning_rate=0.1, n_estimators=100, verbose=True)
             if y == None:
                 model.fit(X)
@@ -29,4 +27,5 @@ class Model:
             return model
     
     def predict(self, X):
+        X = np.array(X).reshape(-1,1)
         return self.model.predict(X) # Predict the target values

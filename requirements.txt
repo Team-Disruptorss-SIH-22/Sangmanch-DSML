@@ -10,6 +10,7 @@ MarkupSafe==2.1.1
 numpy==1.23.2
 pandas==1.4.3
 pymongo==4.2.0
+pyod==1.0.4
 python-dateutil==2.8.2
 python-dotenv==0.20.0
 pytz==2022.2.1
